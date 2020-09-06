@@ -64,7 +64,7 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 
 {semicolon} {printf("[semicolon, %s\n]", yytext);}
 
-{ID}	{printf("[Id, %s (%d)\n]", id++);}
+
 
 {l_comment} { }
 
