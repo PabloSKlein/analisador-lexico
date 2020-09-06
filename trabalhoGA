@@ -13,10 +13,12 @@ int id=0;
 DIGIT	[0-9]
 ID	[a-z|A-Z][a-z0-9A-Z]*
 reserved_word	if|else|for|while|do|switch|return|function|null|NULL|break|case|void|#include|printf|scanf|int|float|double|string|bool
-Relational_Op	"<"|">"|"<="|">="|"!="|"=="
 string_literal	"\"".*"\""
+ponteiro	"&"{ID}
+include_path	{ID}"."{ID}
 logic_op	"&&"|"||"
-Arith_​Op	"+"|"-"|"*"|"/"
+Arith_op	"+"|"-"|"*"|"/"|"%"
+Relational_Op 		"<"|"<="|"=="|"!="|">="|">"|"?"|":"
 equal	"="
 l_paren		"("
 r_paren		")"
@@ -34,15 +36,21 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 
 %%
 
-{DIGIT}+ { printf("[num, %s (%d)]\n", yytext, atoi(yytext));}
+{DIGIT}+ { printf("[num, %s]\n", yytext, atoi(yytext));}
 
-{DIGIT}"."{DIGIT}* {printf("[num, %s (%f)]\n", yytext, atof(yytext));}
+{DIGIT}"."{DIGIT}* {printf("[num, %s]\n", yytext, atof(yytext));}
 
 {reserved_word} {printf("[Reserved_word, %s]\n", yytext);}
 
 {Relational_Op} {printf("[Relational_Op, %s]\n", yytext);}
 
+{Arith_op} {printf("[Arith_op, %s]\n", yytext);}
+
 {logic_op} {printf("[logic_op, %s]\n", yytext);}
+
+{include_path} {printf("[include_path, %s]\n", yytext);}
+
+{ponteiro} {printf("[ponteiro, %s]\n", yytext);}
 
 {ID} {printf("Identificador encontrado: %s\n", yytext);}
 
