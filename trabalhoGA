@@ -5,32 +5,70 @@
 %{
 
 #include <math.h>
+int id=0;
 
 %}
 
 
 DIGIT	[0-9]
-ID	[a-z][a-z0-9]*
+ID	[a-z|A-Z][a-z0-9A-Z]*
+reserved_word	if|else|for|while|do|switch|return|function|null|NULL|break|case|void|#include|printf|scanf|int|float|double|string|bool
+Relational_Op	"<"|">"|"<="|">="|"!="|"=="
+string_literal	"\"".*"\""
+logic_op	"&&"|"||"
+Arith_​Op	"+"|"-"|"*"|"/"
+equal	"="
+l_paren		"("
+r_paren		")"
+l_bracket 	"{"
+r_bracket	"}"
+l_square    "["
+r_square    "]"
+comma		","
+semicolon	";"
+l_comment   "//".*
+n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 
+
+/* rules */
 
 %%
 
 {DIGIT}+ { printf("[num, %s (%d)\n]", yytext, atoi(yytext));}
 
-{DIGIT}"."{DIGIT}* {printf("Numero float encontrado: %s (%f)\n", yytext, atof(yytext));}
+{DIGIT}"."{DIGIT}* {printf("[num, %s (%f)\n]", yytext, atof(yytext));}
 
-if|then|begin|procedure|function	{
-		printf("Palavra reservada encontrada: %s\n ", yytext);}
+{reserved_word} {printf("[Reserved_word, %s\n]", yytext);}
 
-{ID}	{printf("Identificador encontrado: %s\n", yytext);}
+{Relational_Op} {printf("[Relational_Op, %s\n]", yytext);}
 
-"+"|"-"|"*"|"/" {printf("Operador encontrado: %s\n", yytext);}
+{logic_op} {printf("[logic_op, %s\n]", yytext);}
 
-"<"|">"|"<="|">="|"!="|"==" {printf("[Relational_Op, %s\n]", yytext);}
+{ID} {printf("Identificador encontrado: %s\n", yytext);}
 
-"{"[\^{}}\n]*"}"	
+{equal} {printf("[equal, %s\n]", yytext);}
 
-[ \t\n]+		
+{l_paren} {printf("[l_paren, %s\n]", yytext);}
+
+{r_paren} {printf("[r_paren, %s\n]", yytext);}
+
+{l_bracket} {printf("[l_bracket, %s\n]", yytext);}
+
+{r_bracket} {printf("[r_bracket, %s\n]", yytext);}
+
+{l_square} {printf("[l_square, %s\n]", yytext);}
+
+{r_square} {printf("[r_square, %s\n]", yytext);}
+
+{comma} {printf("[comma, %s\n]", yytext);}
+
+{semicolon} {printf("[semicolon, %s\n]", yytext);}
+
+{ID}	{printf("[Id, %s (%d)\n]", id++);}
+
+{l_comment} { }
+
+{n_comment} { }
 
 .	printf("Caractere nao reconhecido: %s\n", yytext);
 
