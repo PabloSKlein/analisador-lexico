@@ -34,41 +34,41 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 
 %%
 
-{DIGIT}+ { printf("[num, %s (%d)\n]", yytext, atoi(yytext));}
+{DIGIT}+ { printf("[num, %s (%d)]\n", yytext, atoi(yytext));}
 
-{DIGIT}"."{DIGIT}* {printf("[num, %s (%f)\n]", yytext, atof(yytext));}
+{DIGIT}"."{DIGIT}* {printf("[num, %s (%f)]\n", yytext, atof(yytext));}
 
-{reserved_word} {printf("[Reserved_word, %s\n]", yytext);}
+{reserved_word} {printf("[Reserved_word, %s]\n", yytext);}
 
-{Relational_Op} {printf("[Relational_Op, %s\n]", yytext);}
+{Relational_Op} {printf("[Relational_Op, %s]\n", yytext);}
 
-{logic_op} {printf("[logic_op, %s\n]", yytext);}
+{logic_op} {printf("[logic_op, %s]\n", yytext);}
 
 {ID} {printf("Identificador encontrado: %s\n", yytext);}
 
-{equal} {printf("[equal, %s\n]", yytext);}
+{equal} {printf("[equal, %s]\n", yytext);}
 
-{l_paren} {printf("[l_paren, %s\n]", yytext);}
+{l_paren} {printf("[l_paren, %s]\n", yytext);}
 
-{r_paren} {printf("[r_paren, %s\n]", yytext);}
+{r_paren} {printf("[r_paren, %s]\n", yytext);}
 
-{l_bracket} {printf("[l_bracket, %s\n]", yytext);}
+{l_bracket} {printf("[l_bracket, %s]\n", yytext);}
 
-{r_bracket} {printf("[r_bracket, %s\n]", yytext);}
+{r_bracket} {printf("[r_bracket, %s]\n", yytext);}
 
-{l_square} {printf("[l_square, %s\n]", yytext);}
+{l_square} {printf("[l_square, %s]\n", yytext);}
 
-{r_square} {printf("[r_square, %s\n]", yytext);}
+{r_square} {printf("[r_square, %s]\n", yytext);}
 
-{comma} {printf("[comma, %s\n]", yytext);}
+{comma} {printf("[comma, %s]\n", yytext);}
 
-{semicolon} {printf("[semicolon, %s\n]", yytext);}
-
-
+{semicolon} {printf("[semicolon, %s]\n", yytext);}
 
 {l_comment} { }
 
 {n_comment} { }
+
+[ \t\n]+
 
 .	printf("Caractere nao reconhecido: %s\n", yytext);
 
