@@ -46,6 +46,8 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 
 {ID} {printf("Identificador encontrado: %s\n", yytext);}
 
+{string_literal} { printf("[string_literal: %s ]\n", yytext);}
+
 {equal} {printf("[equal, %s]\n", yytext);}
 
 {l_paren} {printf("[l_paren, %s]\n", yytext);}
