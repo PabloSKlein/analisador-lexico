@@ -1,11 +1,17 @@
-/* Scanner para uma linguagem Pascal simplificada */
 
 %option noyywrap
 
 %{
 
+#include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
 #include <math.h>
+
 int id=0;
+char varIds[30][30] = {};
+int actualId = 1;
+bool breakStrcmp = false;
 
 %}
 
@@ -37,6 +43,11 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 
 %%
 
+{ID} {
+
+	
+}
+	
 {DIGIT}+ { printf("[num, %s]\n", yytext, atoi(yytext));}
 
 {DIGIT}"."{DIGIT}* {printf("[num, %s]\n", yytext, atof(yytext));}
@@ -52,8 +63,6 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 {include_path} {printf("[include_path, %s]\n", yytext);}
 
 {ponteiro} {printf("[ponteiro, %s]\n", yytext);}
-
-{ID} {printf("Identificador encontrado: %s\n", yytext);}
 
 {string_literal} { printf("[string_literal: %s ]\n", yytext);}
 
