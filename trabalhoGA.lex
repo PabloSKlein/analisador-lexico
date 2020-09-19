@@ -9,7 +9,7 @@
 #include <math.h>
 
 int id=0;
-char varIds[4][10] = {};
+char varIds[10][10] = {};
 int actualId = 1;
 bool breakStrcmp = false;
 
@@ -68,7 +68,14 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 
 {l_bracket} {printf("[l_bracket, %s]\n", yytext);}
 
-{r_bracket} {printf("[r_bracket, %s]\n", yytext);}
+{r_bracket} {
+
+	printf("[r_bracket, %s]\n", yytext);
+	for (int i = 0; i < 10; i++){
+		strcpy(varIds[i], "/0");
+		actualId = 1;
+	}
+}
 
 {l_square} {printf("[l_square, %s]\n", yytext);}
 
@@ -81,16 +88,16 @@ n_comment	"/*"([^*]|"*"+[^/*])*"*"+"/"
 {ID} {
 
 	int i;
-	for (i = 0; i < 4; i++){
+	for (i = 0; i < sizeof(varIds); i++){
         if(strcmp(yytext, varIds[i])==0){
-			printf("[id %s, %d] ", yytext, i);
+			printf("[id %s, %d]\n", yytext, i);
 			breakStrcmp = true;
 			break;
 		}
 	}
 	if(!breakStrcmp){
 		strcpy(varIds[actualId], yytext);
-		printf("[id %s, %d] ", yytext, actualId);
+		printf("[id %s, %d]\n", yytext, actualId);
 		actualId++;
 	}else{
 		breakStrcmp = false;
